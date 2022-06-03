@@ -6,6 +6,7 @@ const server = http.createServer(app);
 const bodyParser = require("body-parser");
 const { Server } = require("socket.io");
 const immer = require("immer");
+const PORT = process.enc || 6100;
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -144,5 +145,5 @@ socket.on('disconnect', () => {
 
 
 
-server.listen(6100, () => console.log("running on port 6100..."));
+server.listen(PORT, () => console.log("running on port 6100..."));
 
