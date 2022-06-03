@@ -1,13 +1,23 @@
 const express = require("express");
 const cors = require("cors");
-
-const server = express().use().use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-.listen(PORT, () => console.log(`Listening on ${PORT}`));;
-
-
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const bodyParser = require("body-parser");
+const { Server } = require("socket.io");
 const immer = require("immer");
-const PORT = process.enc || 6100;
-const io = socketIO(server);
+const PORT = process.env.PORT || 6100
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["WS"]
+  }
+});
+
+//middleware
+app.use(cors());
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 // //socket
 
@@ -135,5 +145,5 @@ socket.on('disconnect', () => {
 
 
 
-
+server.listen(PORT, () => console.log(`listing on ${PORT}`));
 
