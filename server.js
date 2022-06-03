@@ -5,7 +5,6 @@ const http = require('http');
 const server = http.createServer(app);
 const bodyParser = require("body-parser");
 const { Server } = require("socket.io");
-const immer = require("immer");
 const PORT = process.env.PORT || 6100
 const io = new Server(server, {
   cors: {
